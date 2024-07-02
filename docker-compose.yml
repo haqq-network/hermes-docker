@@ -1,0 +1,22 @@
+services:
+  hermes:
+    build:
+      dockerfile: hermes.Dockerfile
+    container_name: hermes
+    hostname: hermes
+    volumes:
+      - hermes:/root/.hermes
+      - ./config.yaml:/root/.hermes/config.toml
+      - ./.mnemonic:/root/.hermes/.mnemonic
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD-SHELL", "health-check | tail -n 1 | grep -q \"SUCCESS\" && echo $? || echo $?"]
+      interval: 300s
+      timeout: 300s
+      retries: 3
+volumes:
+  hermes:
+networks:
+  app-network:
+    external: true

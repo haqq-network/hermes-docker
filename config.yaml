@@ -1,0 +1,349 @@
+[global]
+log_level = "warn"
+
+[mode.clients]
+enabled = false
+refresh = true
+misbehaviour = true
+
+[mode.connections]
+enabled = false
+
+[mode.channels]
+enabled = true
+
+[mode.packets]
+enabled = true
+clear_interval = 100
+clear_on_start = true
+tx_confirmation = false
+auto_register_counterparty_payee = false
+
+[rest]
+enabled = true
+host = "0.0.0.0"
+port = 3000
+
+[telemetry]
+enabled = true
+host = "0.0.0.0"
+port = 3001
+
+[telemetry.buckets.latency_submitted]
+start = 500
+end = 20000
+buckets = 10
+
+[telemetry.buckets.latency_confirmed]
+start = 1000
+end = 30000
+buckets = 10
+
+[[chains]]
+id = "stride-1"
+rpc_addr = "http://stride_rpc_addr"
+grpc_addr = "http://stride_grpc_addr"
+event_source = { mode = 'push', url = "ws://stride_rpc_addr/websocket", batch_delay = '3000ms'}
+
+rpc_timeout = "10s"
+account_prefix = "stride"
+key_name = ""
+key_store_type = "Test"
+store_prefix = "ibc"
+default_gas = 100000
+max_gas = 1000000
+gas_price = { price = 0.0005, denom = "ustrd"}
+gas_multiplier = 1.5
+max_msg_num = 30
+max_tx_size = 1800000
+clock_drift = "15s"
+max_block_time = "30s"
+trusting_period = "7days"
+trust_threshold = { numerator = '1', denominator = '3' }
+memo_prefix = "IBC from HAQQ Network"
+address_type = { derivation = 'cosmos' }
+
+[chains.packet_filter]
+policy = 'allow'
+list = [
+  ['ica*', '*'],
+  ['transfer', 'channel-240'],
+]
+
+[[chains]]
+id = "haqq_11235-1"
+type = "CosmosSdk"
+rpc_addr = "http://haqq_rpc_addr "
+grpc_addr = "http://haqq_grpc_addr"
+event_source = { mode = 'push', url = "ws://haqq_rpc_addr/websocket", batch_delay = '3000ms'}
+
+rpc_timeout = "10s"
+trusted_node = false
+account_prefix = "haqq"
+key_name = ""
+key_store_type = "Test"
+store_prefix = "ibc"
+default_gas = 500000
+max_gas = 1500000
+gas_price = { price = 27500000000, denom = "aISLM"}
+gas_multiplier = 1.5
+max_msg_num = 30
+max_tx_size = 180000
+max_grpc_decoding_size = 33554432
+clock_drift = "15s"
+max_block_time = "30s"
+trusting_period = "14days"
+ccv_consumer_chain = false
+trust_threshold = { numerator = '1', denominator = '3' }
+memo_prefix = "IBC from HAQQ Network"
+sequential_batch_tx = false
+
+[chains.packet_filter]
+policy = 'allow'
+list = [
+  ['ica*', '*'],
+  ['transfer', 'channel-0'],
+  ['transfer', 'channel-1'],
+  ['transfer', 'channel-2'],
+  ['transfer', 'channel-3'],
+  ['transfer', 'channel-4'],
+  ['transfer', 'channel-6'],
+  ['transfer', 'channel-7'],
+]
+
+[chains.packet_filter.min_fees]
+
+[chains.address_type]
+derivation = 'ethermint'
+proto_type = { pk_type = '/ethermint.crypto.v1.ethsecp256k1.PubKey' }
+
+[[chains]]
+id = "axelar-dojo-1"
+type = "CosmosSdk"
+rpc_addr = "http://axelar_rpc_addr"
+grpc_addr = "http://axelar_grpc_addr"
+event_source = { mode = 'push', url = "ws://axelar_rpc_addr/websocket", batch_delay = '3000ms'}
+
+rpc_timeout = "10s"
+trusted_node = false
+account_prefix = "axelar"
+key_name = ""
+key_store_type = "Test"
+store_prefix = "ibc"
+default_gas = 300000
+max_gas = 2000000
+gas_multiplier = 1.1
+max_msg_num = 30
+max_tx_size = 180000
+max_grpc_decoding_size = 33554432
+clock_drift = "15s"
+max_block_time = "30s"
+ccv_consumer_chain = false
+memo_prefix = "IBC from HAQQ Network"
+sequential_batch_tx = false
+
+[chains.trust_threshold]
+numerator = "1"
+denominator = "3"
+
+[chains.gas_price]
+price = 0.01
+denom = "uaxl"
+
+[chains.packet_filter]
+policy = 'allow'
+list = [
+  ['ica*', '*'],
+  ['transfer', 'channel-113'],
+]
+
+[chains.packet_filter.min_fees]
+
+[chains.address_type]
+derivation = "cosmos"
+
+[[chains]]
+id = "kava_2222-10"
+type = "CosmosSdk"
+rpc_addr = "https://kava_rpc_addr"
+grpc_addr = "https://kava_grpc_addr"
+event_source = { mode = 'push', url = "wss://kava_rpc_addr/websocket", batch_delay = '3000ms'}
+
+rpc_timeout = "10s"
+trusted_node = false
+account_prefix = "kava"
+key_name = ""
+key_store_type = "Test"
+store_prefix = "ibc"
+default_gas = 300000
+max_gas = 1500000
+gas_multiplier = 1.1
+max_msg_num = 30
+max_tx_size = 180000
+max_grpc_decoding_size = 33554432
+clock_drift = "5s"
+max_block_time = "30s"
+ccv_consumer_chain = false
+memo_prefix = "IBC from HAQQ Network"
+sequential_batch_tx = false
+
+[chains.trust_threshold]
+numerator = "1"
+denominator = "3"
+
+[chains.gas_price]
+price = 0.1
+denom = "ukava"
+
+[chains.packet_filter]
+policy = 'allow'
+list = [
+  ['ica*', '*'],
+  ['transfer', 'channel-135'],
+]
+
+[chains.packet_filter.min_fees]
+
+[chains.address_type]
+derivation = "cosmos"
+
+[[chains]]
+id = "noble-1"
+type = "CosmosSdk"
+rpc_addr = "https://noble_rpc_addr"
+grpc_addr = "http://noble_grpc_addr"
+event_source = { mode = 'push', url = "wss://noble_rpc_addr/websocket", batch_delay = '3000ms'}
+
+rpc_timeout = "10s"
+trusted_node = false
+account_prefix = "noble"
+key_name = ""
+key_store_type = "Test"
+store_prefix = "ibc"
+default_gas = 300000
+max_gas = 1500000
+gas_multiplier = 1.1
+max_msg_num = 30
+max_tx_size = 180000
+max_grpc_decoding_size = 33554432
+clock_drift = "5s"
+max_block_time = "30s"
+ccv_consumer_chain = false
+memo_prefix = "IBC from HAQQ Network"
+sequential_batch_tx = false
+
+[chains.trust_threshold]
+numerator = "1"
+denominator = "3"
+
+[chains.gas_price]
+price = 0.1
+denom = "uusdc"
+
+[chains.packet_filter]
+policy = 'allow'
+list = [
+  ['ica*', '*'],
+  ['transfer', 'channel-32'],
+]
+
+[chains.packet_filter.min_fees]
+
+[chains.address_type]
+derivation = "cosmos"
+
+[[chains]]
+id = "cosmoshub-4"
+type = "CosmosSdk"
+rpc_addr = "https://cosmoshub_rpc_addr"
+grpc_addr = "http://cosmoshub_grpc_addr"
+event_source = { mode = 'push', url = "wss://cosmoshub_rpc_addr/websocket", batch_delay = '3000ms'}
+
+rpc_timeout = "10s"
+trusted_node = false
+account_prefix = "cosmos"
+key_name = ""
+key_store_type = "Test"
+store_prefix = "ibc"
+default_gas = 300000
+max_gas = 1500000
+gas_multiplier = 1.1
+max_msg_num = 30
+max_tx_size = 180000
+max_grpc_decoding_size = 33554432
+clock_drift = "5s"
+max_block_time = "30s"
+ccv_consumer_chain = false
+memo_prefix = "IBC from HAQQ Network"
+sequential_batch_tx = false
+
+[chains.trust_threshold]
+numerator = "1"
+denominator = "3"
+
+[chains.gas_price]
+price = 0.025
+denom = "uatom"
+
+[chains.packet_filter]
+policy = "allow"
+
+list = [
+  ['ica*', '*'],
+  ['transfer', 'channel-632'],
+]
+
+[chains.packet_filter.min_fees]
+
+[chains.address_type]
+derivation = "cosmos"
+
+[[chains]]
+id = "osmosis-1"
+type = "CosmosSdk"
+rpc_addr = "http://osmosis_rpc_addr"
+grpc_addr = "http://osmosis_grpc_addr"
+event_source = { mode = 'push', url = "ws://osmosis_rpc_addr/websocket", batch_delay = '3000ms'}
+
+rpc_timeout = "10s"
+trusted_node = false
+account_prefix = "osmo"
+key_name = ""
+key_store_type = "Test"
+store_prefix = "ibc"
+default_gas = 300000
+max_gas = 1500000
+gas_multiplier = 1.5
+max_msg_num = 30
+max_tx_size = 180000
+max_grpc_decoding_size = 33554432
+clock_drift = "15s"
+max_block_time = "30s"
+ccv_consumer_chain = false
+memo_prefix = "IBC from HAQQ Network"
+sequential_batch_tx = false
+
+[chains.trust_threshold]
+numerator = "1"
+denominator = "3"
+
+[chains.gas_price]
+price = 0.025
+denom = "uosmo"
+
+[chains.packet_filter]
+policy = "allow"
+
+list = [
+  ['ica*', '*'],
+  ['transfer', 'channel-1575'],
+]
+
+[chains.packet_filter.min_fees]
+
+[chains.address_type]
+derivation = "cosmos"
+
+[tracing_server]
+enabled = false
+port = 5555
