@@ -8,8 +8,6 @@ services:
       - hermes:/root/.hermes
       - ./config.yaml:/root/.hermes/config.toml
       - ./.mnemonic:/root/.hermes/.mnemonic
-    networks:
-      - app-network
     healthcheck:
       test: ["CMD-SHELL", "health-check | tail -n 1 | grep -q \"SUCCESS\" && echo $? || echo $?"]
       interval: 300s
@@ -17,6 +15,3 @@ services:
       retries: 3
 volumes:
   hermes:
-networks:
-  app-network:
-    external: true
